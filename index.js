@@ -1,6 +1,7 @@
 const express = require('express')
 const axios = require('axios')
 const geoip = require('geoip-lite')
+const cron = require('node-cron');
 require('dotenv').config()
 
 const app = express()
@@ -8,7 +9,6 @@ const port = 3000
 
 const API_KEY = process.env.API_KEY
 
-app.use(express.static('public'));
 app.use(express.json());
 
 
