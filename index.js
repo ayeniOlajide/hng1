@@ -54,7 +54,7 @@ app.get('/ping', (req, res) => {
 
 cron.schedule('*/3 * * * *', async () => {
     try {
-        await axios.get('https://hng1-1.onrender.com/');
+        await axios.get('https://hng1-1.onrender.com/api/hello');
         console.log('Server pinged');
     } catch (error) {
         console.error('Error pinging the server:', error);
