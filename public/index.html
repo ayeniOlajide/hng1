@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Weather Greeting</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Horoscope App</h1>
+        <form id="greeting-form">
+            <label for="visitor-name">Enter your name:</label>
+            <input type="text" id="visitor-name" name="visitor_name" required>
+            <button type="submit">Get Greeting</button>
+        </form>
+        <div id="response-container">
+            <h2>Response</h2>
+            <pre id="response"></pre>
+        </div>
+    </div>
+    <script>
+        document.getElementById('greeting-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const visitorName = document.getElementById('visitor-name').value;
+            const responseContainer = document.getElementById('response');
+
+            try {
+                const response = await fetch(`/api/hello?visitor_name=${visitorName}`);
+                const data = await response.json();
+                responseContainer.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseContainer.textContent = 'An error occurred while fetching the data.';
+            }
+        });
+    </script>
+</body>
+</html>

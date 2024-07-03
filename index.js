@@ -8,6 +8,7 @@ const port = 3000
 
 const API_KEY = process.env.API_KEY
 
+app.use(express.static('public'));
 app.use(express.json());
 
 
@@ -46,6 +47,21 @@ app.get('/api/hello', async (req, res) => {
         res.status(500).send('Error Occurred')
     }
 }) 
+
+app.get('/ping', (req, res) => {
+    res.send('Server is alive');
+});
+
+cron.schedule('*/3 * * * *', async () => {
+    try {
+        await axios.get('http://localhost:3000/ping');
+        console.log('Server pinged');
+    } catch (error) {
+        console.error('Error pinging the server:', error);
+    }
+});
+
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}!`)
